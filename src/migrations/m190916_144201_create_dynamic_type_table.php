@@ -23,7 +23,12 @@ class m190916_144201_create_dynamic_type_table extends Migration
             'position' => $this->integer()->notNull(),
         ]);
 
-        $this->insert('{{%dynamic_type}}', ['name' => '---------------------', 'type' => 'static', 'category' => 1]);
+        $this->insert('{{%dynamic_type}}', [
+            'name' => '---------------------',
+            'type' => 'static',
+            'category' => 1,
+            'position' => 1
+        ]);
     }
 
     /**
