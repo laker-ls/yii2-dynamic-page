@@ -6,8 +6,11 @@
 ```php
 'modules' => [
     'dynamic-page' => [
-        'class' => '\lakerLS\dynamic-page\Module',
+        'class' => 'lakerLS\dynamicPage\Module',
     ],
+    'treemanager' =>  [ // модуль для работы с деревом категорий.
+        'class' => '\kartik\tree\Module',
+    ]
 ]
 ```
 

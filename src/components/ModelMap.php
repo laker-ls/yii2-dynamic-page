@@ -22,6 +22,10 @@ class ModelMap extends ActiveRecord
      */
     public static function findByName($model)
     {
+        if (empty(Module::getInstance()->modelMap)) {
+            Yii::$app->getModule('dynamic-page')->init();
+        }
+
         $fullPath = Module::getInstance()->modelMap[$model];
         return Yii::createObject(ActiveQuery::class, [$fullPath]);
     }
