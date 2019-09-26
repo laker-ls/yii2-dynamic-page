@@ -1,0 +1,33 @@
+{
+    "name": "laker-ls/yii2-dynamic-page",
+    "description": "Module represent dynamic pages.",
+    "keywords": ["yii2", "extension", "module"],
+    "homepage": "https://github.com/laker-ls/dynamic-page",
+    "type": "yii2-extension",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Владислав Сусып",
+            "email": "vladislav_susyp@bk.ru",
+            "homepage": "https://github.com/laker-ls"
+        }
+    ],
+    "require": {
+        "dektrium/yii2-user": "^0.9.12",
+        "developeruz/yii2-db-rbac": "~1.1.0",
+        "kartik-v/yii2-tree-manager": "1.1.2",
+        "kartik-v/yii2-widget-select2": "2.1.3",
+        "yii2tech/ar-position": "~1.0.1",
+        "laker-ls/yii2-nested-set-menu": "~1.2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "lakerLS\\dynamicPage\\": "src"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
