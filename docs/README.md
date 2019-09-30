@@ -21,3 +21,4 @@
 - [Управление статьями](https://github.com/laker-ls/yii2-dynamic-page/blob/master/docs/articles-management.md)
 - [Управление статьями вне админ-панели](https://github.com/laker-ls/yii2-dynamic-page/blob/master/docs/articles-management-ajax.md)
 - [Отображение статей](https://github.com/laker-ls/yii2-dynamic-page/blob/master/docs/articles-display.md)
+- [Отображение динамических страниц](https://github.com/laker-ls/yii2-dynamic-page/blob/master/docs/dynamic-page-display.md)

@@ -48,7 +48,6 @@ class Article extends ActiveRecord
     /**
      * @inheritdoc
      */
-
     public function rules()
     {
         return [

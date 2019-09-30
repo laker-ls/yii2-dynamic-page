@@ -25,15 +25,6 @@ class ArticleSearch extends Article
     }
 
     /**
-     * @inheritdoc
-     */
-    public function scenarios()
-    {
-        // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
-    }
-
-    /**
      * Экземляр пагинации с настройками для корректного отображения и работы пагинации на странице.
      *
      * @param array $category

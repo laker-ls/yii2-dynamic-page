@@ -24,6 +24,12 @@ class DynamicPageController extends Controller
     public $allCategories;
 
     /**
+     * Свойство, которое необходимо для виджета https://github.com/laker-ls/yii2-pencil
+     * @var int $categoryId
+     */
+    public $categoryId;
+
+    /**
      * Передаем в свойство $allCategories все существующие категории, за исключением корня.
      *
      * @param string $id
@@ -55,7 +61,9 @@ class DynamicPageController extends Controller
 
         $modelSearch = new ArticleSearch();
         $dataProvider = $modelSearch->inCategory($model->id, Yii::$app->request->queryParams);
+        $this->categoryId = $model->id;
 
+        $this->trigger(self::EVENT_BEFORE_ACTION);
         if ($model->type != 'static') {
             return $this->render($model->type . '/' . $model->type . 'Category', [
                 'category' => $model,
@@ -79,8 +87,11 @@ class DynamicPageController extends Controller
         if (!empty($redirect)) {
             return $this->redirect($redirect, 301);
         }
-        $categoryArticle = CategoryHelper::getParentArticle($model->category_id, $this->allCategories);
 
+        $categoryArticle = CategoryHelper::getParentArticle($model->category_id, $this->allCategories);
+        $this->categoryId = $categoryArticle->id;
+
+        $this->trigger(self::EVENT_BEFORE_ACTION);
         return $this->render($model->type . '/' . $model->type . 'Article', [
             'category' => $categoryArticle,
             'article' => $model,

@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ArrayHelper::map($typeDropDown, 'type', 'name')
             )->label($model->attributeLabels()['type'] . ' <span style="color: red">*</span>');
 
-            echo $this->render('_form', [
+            echo $this->render('overriding/_form', [
                 'typeField' => $typeField,
                 'form' => $form,
                 'model' => $model,

@@ -87,7 +87,8 @@ class ArticleAjax {
         let self = this;
         let button = $(".update-article");
 
-        button.on("click", function () {
+        button.on("click", function (event) {
+            event.preventDefault();
             let data = {
                 id: $(this).attr("data-article-id"),
                 currentUrl: location.href,
@@ -125,15 +126,14 @@ class Translator {
     /** Транслит для категории, при создании. */
     category() {
         let self = this;
-        let createCat = $(".kv-create");
+        let createCategory = $(".kv-create");
+        let createRoot = $(".kv-create-root");
 
-        createCat.on("click", function () {
-            setTimeout(function () {
-                let translateOf = $(".translate-of");
-                let translateIn = $(".translate-in");
-
-                self.keyUp(translateOf, translateIn);
-            }, 500);
+        createCategory.on("click", function () {
+            self.translate();
+        });
+        createRoot.on("click", function () {
+            self.translate();
         });
     }
 
@@ -145,35 +145,29 @@ class Translator {
         let self = this;
         let modal = $(".create-article");
         let translateOf = $(".translate-of");
-        let translateIn = $(".translate-in");
 
         if (translateOf.length !== 0) { /** Подключаем в админ-панели */
-            self.keyUp(translateOf, translateIn);
+            self.translate();
         } else { /** Подключаем вне админ-панели, при вызове модального окна на создание записи */
             modal.on("click", function () {
-                setTimeout(function () {
-                    translateOf = $(".translate-of");
-                    translateIn = $(".translate-in");
-
-                    self.keyUp(translateOf, translateIn);
-                }, 500);
+                self.translate();
             });
         }
     }
 
-    /**
-     * Установка обработчика событий.
-     *
-     * @param translateOf из данного поля получаем символы.
-     * @param translateIn в данное поле вставляем транслитерированные символы.
-     */
-    keyUp(translateOf, translateIn) {
+    /** Установка обработчика событий. */
+    translate() {
         let self = this;
-        if (translateOf.val() === "") {
-            translateOf.on("keyup", function () {
-                self.convert(translateOf, translateIn);
-            });
-        }
+        setTimeout(function () {
+            let translateOf = $(".translate-of");
+            let translateIn = $(".translate-in");
+
+            if (translateOf.val() === "") {
+                translateOf.on("keyup", function () {
+                    self.convert(translateOf, translateIn);
+                });
+            }
+        }, 500);
     }
 
     /**

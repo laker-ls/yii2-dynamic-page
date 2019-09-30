@@ -28,32 +28,14 @@ use yii\helpers\ArrayHelper;
                 'type', 'name')
         ) ?>
     </div>
-    <div>
-        <div class="col-sm-6" style="padding-top: 25px">
+    <div class="col-sm-6" >
+        <div style="padding-top: 25px">
             <a href="#" class="btn btn-success image-category" style="width: 100%">Изображение / Развернуть</a>
         </div>
-
-        <div class="col-sm-12" name="window-image" style="display: none;">
-            <?= $form->field($node, 'image')->textarea(); ?>
-        </div>
-
-        <script>
-            $(".image-category").on("click", function (event) {
-                let mainWindow = $("div[name='window-image']");
-                event.preventDefault();
-
-                if (mainWindow.css("display") === "none") {
-                    $(this).html("Изображение / Свернуть");
-                    $(this).css("background-color", "#008eff");
-                    mainWindow.show();
-                } else {
-                    $(this).html("Изображение / Развернуть");
-                    $(this).css("background-color", "#5cb85c");
-                    mainWindow.hide();
-                }
-            });
-        </script>
     </div>
+</div>
+<div name="window-image" style="display: none;">
+    <?= $form->field($node, 'image')->textarea(); ?>
 </div>
 <div class="row">
     <div class="col-sm-12">
@@ -67,7 +49,19 @@ use yii\helpers\ArrayHelper;
     </div>
 </div>
 
-
 <script>
-    //Ckeditor.add("category", ["image"]);
+    $(".image-category").on("click", function (event) {
+        let mainWindow = $("div[name='window-image']");
+        event.preventDefault();
+
+        if (mainWindow.css("display") === "none") {
+            $(this).html("Изображение / Свернуть");
+            $(this).css("background-color", "#008eff");
+            mainWindow.show();
+        } else {
+            $(this).html("Изображение / Развернуть");
+            $(this).css("background-color", "#5cb85c");
+            mainWindow.hide();
+        }
+    });
 </script>

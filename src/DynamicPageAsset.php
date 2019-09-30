@@ -22,12 +22,8 @@ class DynamicPageAsset extends AssetBundle
 
     public function init()
     {
-        if (ArrayHelper::getValue(Yii::$app->params, 'bootstrapVersion') == 4) {
-            $this->depends = [
-                'yii\bootstrap4\BootstrapAsset',
-                'yii\bootstrap4\BootstrapPluginAsset',
-            ];
-        } else {
+        $bsDepend = ArrayHelper::getValue(Yii::$app->params, 'bsDependencyEnabled');
+        if ($bsDepend === true) {
             $this->depends = [
                 'yii\bootstrap\BootstrapAsset',
                 'yii\bootstrap\BootstrapPluginAsset',

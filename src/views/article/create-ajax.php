@@ -33,13 +33,12 @@ use yii\widgets\ActiveForm;
             }
 
             if (!empty(Yii::$app->request->get('type'))) {
-                echo $this->render('_form',[
+                echo $this->render('overriding/_form',[
                     'typeField' => $typeField,
                     'form' => $form,
                     'model' => $model,
                 ]);
             }
-
             ActiveForm::end();
             ?>
         </div>

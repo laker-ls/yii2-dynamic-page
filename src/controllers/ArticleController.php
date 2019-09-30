@@ -2,7 +2,6 @@
 
 namespace lakerLS\dynamicPage\controllers;
 
-use developeruz\db_rbac\behaviors\AccessBehavior;
 use lakerLS\dynamicPage\abstractClasses\CrudController;
 use lakerLS\dynamicPage\components\ModelMap;
 use lakerLS\dynamicPage\models\Article;
@@ -19,30 +18,6 @@ use yii\widgets\ActiveForm;
  */
 class ArticleController extends CrudController
 {
-
-    public $allCategory;
-    public $categoryId;
-
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'as AccessBehavior' => [
-                'class' => AccessBehavior::class,
-                'rules' => [
-                    'dynamic-page/article' => [
-                        [
-                            'allow' => true,
-                            'roles' => ['admin'],
-                        ],
-                    ],
-                ],
-            ],
-        ];
-    }
-
     /**
      * Создание новой модели Article.
      * Вне зависимости от результата попытки создание записи, будет произведен редирект на указанный адрес в GET запросе.
@@ -152,6 +127,9 @@ class ArticleController extends CrudController
         $type = ModelMap::findByName('Type')->where(['type' => $type])->andWhere(['article' => '1'])->one();
         $typeDropDown = ModelMap::findByName('Type')->where(['article' => '1'])->all();
 
+        Yii::$app->assetManager->bundles['lakerLS\dynamicPage\DynamicPageAsset']->js = [];
+        Yii::$app->assetManager->bundles = ['yii\web\JqueryAsset' => false];
+
         return $this->renderAjax('create-ajax', [
             'model' => $model,
             'typeField' => $this->getType($type->type),
@@ -174,6 +152,10 @@ class ArticleController extends CrudController
     {
         $model = $this->findModel($id);
 
+
+        Yii::$app->assetManager->bundles['lakerLS\dynamicPage\DynamicPageAsset']->js = [];
+        Yii::$app->assetManager->bundles = ['yii\web\JqueryAsset' => false];
+
         return $this->renderAjax('update-ajax', [
             'model' => $model,
             'typeField' => $this->getType($model->type),
@@ -186,7 +168,7 @@ class ArticleController extends CrudController
      */
     public function actionModalRender()
     {
-        return $this->renderPartial('_modal');
+        return $this->renderPartial('overriding/_modal');
     }
 
     /**

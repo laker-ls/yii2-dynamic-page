@@ -22,7 +22,7 @@ use yii\widgets\ActiveForm;
 
             echo $form->field($model, 'type')->hiddenInput(['value' => $model->type])->label(false);
 
-            echo $this->render('_form', [
+            echo $this->render('overriding/_form', [
                 'typeField' => $typeField,
                 'form' => $form,
                 'model' => $model,

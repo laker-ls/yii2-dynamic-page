@@ -23,13 +23,13 @@
 Для установки запустите
 
 ```
-$ php composer.phar require laker-ls/yii2-dynamic-page "~1.0.1"
+$ php composer.phar require laker-ls/yii2-dynamic-page "~1.1.0"
 ```
 
 или добавьте в `composer.json` в раздел `require` следующую строку
 
 ```
-"laker-ls/yii2-dynamic-page": "~1.0.1"
+"laker-ls/yii2-dynamic-page": "~1.1.0"
 ```
 
 > Смотрите [список изменений](https://github.com/laker-ls/yii2-dynamic-page/blob/master/CHANGE.md) для подробной информации о версиях.
@@ -109,23 +109,26 @@ public $jsOptions = ['position' => \yii\web\View::POS_BEGIN];
 - [Переопределение контроллеров](https://github.com/laker-ls/yii2-dynamic-page/blob/master/docs/overriding-controllers.md)
 - [Переопределение представлений](https://github.com/laker-ls/yii2-dynamic-page/blob/master/docs/overriding-actions.md)
 
-## Использование bootstrap4
+## Отключение bootstrap модуля
 
-Если используется bootstrap4, вы должны установить расширение [bootstrap4 for yii2](https://github.com/yiisoft/yii2-bootstrap4) 
-и прописать в `config\params`:
+По умолчанию расширение подключает 3 версию bootstrap.
+
+Вероятнее всего вы используйте bootstrap в своем проекте, т.е. он подключен в зависимостях вашего основного `AssetBundle`,
+в таком случае необходимо отключить bootstrap модуля, для этого в `config/params` установите следующее свойство:
+
 ```php
 return [
-    'bootstrapVersion' => 4,
-]
+    'bsDependencyEnabled' => false,
+];
 ```
 
-Так же в вашем `AssetBundle` заменить зависимости с версии 3 на 4 следующим образом:
-
+В случае отключения bootstrap модуля, вы должны следить за тем, что бы в вашем `AssetBundle` была установлены следующише 
+зависимости:
 ```php
 public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap4\BootstrapAsset', // подключение Bootstrap
-    ];
+    'yii\bootstrap\BootstrapAsset',
+    'yii\bootstrap\BootstrapPluginAsset',
+];
 ```
 
 ## Лицензия

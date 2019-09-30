@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 )->label($model->attributeLabels()['type'] . ' <span style="color: red">*</span>');
 
                 if (!empty(Yii::$app->request->get('type'))) {
-                    echo $this->render('_form',[
+                    echo $this->render('overriding/_form',[
                         'typeField' => $typeField,
                         'form' => $form,
                         'model' => $model,

@@ -17,13 +17,13 @@
 Для установки запустите
 
 ```
-$ php composer.phar require laker-ls/yii2-dynamic-page "~1.0.1"
+$ php composer.phar require laker-ls/yii2-dynamic-page "~1.1.0"
 ```
 
 или добавьте в `composer.json` в раздел `require` следующую строку
 
 ```
-"laker-ls/yii2-dynamic-page": "~1.0.1"
+"laker-ls/yii2-dynamic-page": "~1.1.0"
 ```
 
 > Смотрите [список изменений](https://github.com/laker-ls/yii2-dynamic-page/blob/master/CHANGE.md) для подробной информации о версиях.

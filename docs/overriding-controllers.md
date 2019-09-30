@@ -35,7 +35,7 @@ class ArticleController extends BaseArticleController
     'dynamic-page' => [
         'class' => 'lakerLS\dynamicPage\Module',
         'controllerMap' => [
-            'article' => 'app\controllers\ArticleController',
+            'dynamic-page' => 'app\controllers\DynamicPageController',
         ],
     ],
 ],

@@ -17,29 +17,33 @@ class Crud
      */
     public static function create($categoryId, $type)
     {
-        echo Html::button('Создать статью', [
-            'class' => 'create-article',
-            'data-category-id' => $categoryId,
-            'data-type' => $type,
-        ]);
+        if (Yii::$app->user->can('admin')) {
+            echo Html::button('Создать статью', [
+                'class' => 'create-article',
+                'data-category-id' => $categoryId,
+                'data-type' => $type,
+            ]);
+        }
     }
 
     /**
      * Редактирование/удаление статьи.
-     * @param $articleId
+     * @param integer $articleId
      */
     public static function change($articleId)
     {
-        $currentUrl = Yii::$app->request->pathInfo;
+        if (Yii::$app->user->can('admin')) {
+            $currentUrl = Yii::$app->request->pathInfo;
 
-        echo Html::a('✎', '#', [
-            'class' => 'update-article',
-            'data-article-id' => $articleId,
-        ]);
-        echo Html::a('✘', "/dynamic-page/article/delete?id={$articleId}&redirect={$currentUrl}", [
-            'class' => 'delete-article',
-            'data-method' => 'post',
-            'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?',
-        ]);
+            echo Html::a('✎', '#', [
+                'class' => 'update-article',
+                'data-article-id' => $articleId,
+            ]);
+            echo Html::a('✘', "/dynamic-page/article/delete?id={$articleId}&redirect={$currentUrl}", [
+                'class' => 'delete-article',
+                'data-method' => 'post',
+                'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?',
+            ]);
+        }
     }
 }
