@@ -38,12 +38,19 @@ class Crud
             echo Html::a('✎', '#', [
                 'class' => 'update-article',
                 'data-article-id' => $articleId,
+                'title' => 'Редактировать',
             ]);
-            echo Html::a('✘', "/dynamic-page/article/delete?id={$articleId}&redirect={$currentUrl}", [
-                'class' => 'delete-article',
-                'data-method' => 'post',
-                'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?',
+
+            echo Html::beginForm("/dynamic-page/article/delete?id={$articleId}&redirect={$currentUrl}", 'post', [
+                'class' => 'delete-article-form',
             ]);
+                echo Html::submitButton('✘', [
+                    'class' => 'delete-article',
+                    'data-method' => 'post',
+                    'data-confirm-delete' => true,
+                    'title' => 'Удалить',
+                ]);
+            echo Html::endForm();
         }
     }
 }

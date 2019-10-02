@@ -152,7 +152,6 @@ class ArticleController extends CrudController
     {
         $model = $this->findModel($id);
 
-
         Yii::$app->assetManager->bundles['lakerLS\dynamicPage\DynamicPageAsset']->js = [];
         Yii::$app->assetManager->bundles = ['yii\web\JqueryAsset' => false];
 

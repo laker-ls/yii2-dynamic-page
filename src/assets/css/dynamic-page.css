@@ -30,6 +30,15 @@
     color: #0392c1 !important;
 }
 
+.delete-article-form {
+    display: inline-block;
+}
+
+.delete-article {
+    border: none;
+    background: none;
+}
+
 .fa-refresh:before {
     content: "\f021"
 }
