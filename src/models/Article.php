@@ -5,6 +5,7 @@ namespace lakerLS\dynamicPage\models;
 use lakerLS\dynamicPage\components\ModelMap;
 use lakerLS\dynamicPage\validators\ArticleUrlValidator;
 use yii\db\ActiveRecord;
+use yii2tech\ar\position\PositionBehavior;
 
 /**
  * Эта модель для таблицы "dynamic_article".
@@ -36,8 +37,22 @@ class Article extends ActiveRecord
     {
         parent::afterSave($insert, $changedAttributes);
 
-        $redirect = ModelMap::new('Redirect');
+        $redirect = ModelMap::newObject('Redirect');
         $redirect->urlMain($this);
+    }
+
+    /**
+     * Необходимо для установки позиции (перемещения) записей между друг другом.
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'positionBehavior' => [
+                'class' => PositionBehavior::class,
+                'groupAttributes' => ['category_id']
+            ],
+        ];
     }
 
     public static function tableName()

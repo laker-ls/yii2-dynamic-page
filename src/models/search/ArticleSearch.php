@@ -59,7 +59,7 @@ class ArticleSearch extends Article
             ],
             'sort' => [
                 'defaultOrder' => [
-                    'date' => SORT_DESC,
+                    'position' => SORT_DESC,
                 ]
             ],
         ]);
@@ -94,7 +94,7 @@ class ArticleSearch extends Article
             ],
             'sort' => [
                 'defaultOrder' => [
-                    'date' => SORT_DESC,
+                    'position' => SORT_DESC,
                 ]
             ],
         ]);

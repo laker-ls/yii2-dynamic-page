@@ -12,6 +12,7 @@
 - [Переопределение моделей](https://github.com/laker-ls/yii2-dynamic-page/blob/master/docs/overriding-models.md)
 - [Переопределение контроллеров](https://github.com/laker-ls/yii2-dynamic-page/blob/master/docs/overriding-controllers.md)
 - [Переопределение представлений](https://github.com/laker-ls/yii2-dynamic-page/blob/master/docs/overriding-actions.md)
+- [Переопределение прав доступа](https://github.com/laker-ls/yii2-dynamic-page/blob/master/docs/overriding-access.md)
 
 ## Использование
 

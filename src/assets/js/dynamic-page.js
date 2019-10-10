@@ -25,9 +25,6 @@ $(document).ready(function () {
     /** Отображение дополнительных полей в форме `Type` в зависимости от того, какой чекбокс был выбран */
     Different.formDisplay();
 
-    /** Диалоговое окно с подтверждением удаления. */
-    Different.confirmDelete();
-
     /** Сдвигаем строку вверх/вниз с помощью плагина "position". */
     position.positionMove();
 
@@ -232,7 +229,7 @@ class Position {
     /** Нажатая кнопка позиции изменяет свой цвет. */
     markButton(buttonAll, buttonCurrent) {
         buttonAll.css({color: ""});
-        buttonCurrent.css({color: "red"});
+        buttonCurrent.attr({"style": "color: red !important"});
     }
 }
 
@@ -268,18 +265,5 @@ class Different {
                 forArticle.css({display: "none"});
             }
         })
-    }
-
-    /** Диалоговое окно с подтверждением удаления. */
-    static confirmDelete() {
-        let button = $("[data-confirm-delete]");
-
-        button.on("click", function (event) {
-            let answer = confirm("Вы уверены, что хотите удалить этот элемент?");
-
-            if (answer === false) {
-                event.preventDefault();
-            }
-        });
     }
 }

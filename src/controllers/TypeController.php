@@ -44,7 +44,7 @@ class TypeController extends CrudController
     protected function model()
     {
         /** @var Type $model */
-        $model = ModelMap::new('Type');
+        $model = ModelMap::newObject('Type');
         return $model;
     }
 

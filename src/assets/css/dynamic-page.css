@@ -18,14 +18,14 @@
     background-color: #0392c1 !important;
 }
 
-.update-article, .delete-article {
+.update-article, .delete-article, .move-article {
     text-decoration: none;
     color: #00a3d9 !important;
     cursor: pointer !important;
     transition: 300ms;
 }
 
-.update-article:hover, .delete-article:hover {
+.update-article:hover, .delete-article:hover, .move-article:hover {
     text-decoration: none;
     color: #0392c1 !important;
 }

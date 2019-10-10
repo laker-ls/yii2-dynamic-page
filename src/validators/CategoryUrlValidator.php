@@ -22,7 +22,7 @@ class CategoryUrlValidator extends Validator
      * $lvl + 1 , где $lvl глубина категории, которая является родителем статьи.
      *
      * @param object $model
-     * @param object $attribute
+     * @param string $attribute
      * @return bool
      */
     public function validateAttribute($model, $attribute)
@@ -57,7 +57,7 @@ class CategoryUrlValidator extends Validator
      * Валидация на совпадение url при создании и редактировании категории.
      *
      * @param object $model
-     * @param object $attribute
+     * @param string $attribute
      * @param integer $parentId
      */
     private function validateCUCategory($model, $attribute, $parentId)
@@ -75,29 +75,29 @@ class CategoryUrlValidator extends Validator
      * Валидация на совпадение url при перемещении категории в дереве.
      *
      * @param object $model
-     * @param object $attribute
+     * @param string $attribute
      * @param array $post
      */
     private function validateMoveCategory($model, $attribute, $post)
     {
         /** @var Category $parent */
-        $parent = ModelMap::findByName('Category')->where(['id' => $post['idFrom']])->one();
-
+        /** @var Category $movingCategory */
         if ($post['dir'] == 'l') {
-            $parent = $parent->parents(1)->one();
+            $movingCategory = ModelMap::findByName('Category')->where(['id' => $post['idFrom']])->one();
+            $parent = $movingCategory->parents(1)->one();
             if ($parent->id != $parent->root) {
                 $parent = $parent->parents(1)->one();
             }
             $leavesCategory = $parent->children(1)->all();
             $leavesArticle = ModelMap::findByName('Article')->where(['category_id' => $parent->id])->all();
         } elseif ($post['dir'] == 'r') {
+            $parent = ModelMap::findByName('Category')->where(['id' => $post['idTo']])->one();
             $leavesCategory = $parent->children(1)->all();
             $leavesArticle = ModelMap::findByName('Article')->where(['category_id' => $parent->id])->all();
         } else {
             $leavesCategory = [];
             $leavesArticle = [];
         }
-
         $this->validateSelection($model, $attribute, $leavesCategory, $leavesArticle);
     }
 
@@ -105,7 +105,7 @@ class CategoryUrlValidator extends Validator
      * Подбор всех категорий и статей на уровне, в котором осуществляются действия.
      *
      * @param object $model
-     * @param object $attribute
+     * @param string $attribute
      * @param array $leavesCategory
      * @param array $leavesArticle
      */
@@ -117,7 +117,7 @@ class CategoryUrlValidator extends Validator
             foreach ($leavesCategory as $category) {
                 if ($currentCategory->url == $category->url && $currentCategory->id != $category->id) {
                     $model->addError($attribute,
-                        'Совпадение адресов с категорией во вложенности. Измените адрес.');
+                        'Совпадение адреса с адресом другой категориий. Измените адрес.');
                 }
             }
         }
@@ -125,7 +125,7 @@ class CategoryUrlValidator extends Validator
             foreach ($leavesArticle as $article) {
                 if ($currentCategory->url == $article->url) {
                     $model->addError($attribute,
-                        'Совпадение адресов со статьей во категории. Измените адрес.');
+                        'Совпадение адреса с адресом статьи. Измените адрес.');
                 }
             }
         }

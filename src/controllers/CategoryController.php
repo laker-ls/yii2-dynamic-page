@@ -3,14 +3,17 @@
 namespace lakerLS\dynamicPage\controllers;
 
 use developeruz\db_rbac\behaviors\AccessBehavior;
+use kartik\tree\controllers\NodeController;
+use lakerLS\dynamicPage\components\Access;
 use lakerLS\dynamicPage\components\ModelMap;
 use lakerLS\dynamicPage\models\search\CategorySearch;
-use yii\web\Controller;
+use lakerLS\dynamicPage\validators\CategoryUrlValidator;
+use Yii;
 
 /**
  * CategoryController реализует CRUD модели Category.
  */
-class CategoryController extends Controller
+class CategoryController extends NodeController
 {
     /**
      * @inheritdoc
@@ -24,7 +27,7 @@ class CategoryController extends Controller
                     'dynamic-page/category' => [
                         [
                             'allow' => true,
-                            'roles' => ['admin'],
+                            'roles' => Access::getRoles(),
                         ],
                     ],
                 ],
@@ -53,5 +56,27 @@ class CategoryController extends Controller
             'treeCheck' => $treeCheck,
             'anyCategory' => $anyCategory,
         ]);
+    }
+
+    /**
+     * Переопределенный action TreeView от kartik-v.
+     * Если результатом стандартного экшена является вывод ошибки, переопределяем сообщение об ошибке.
+     */
+    public function actionMove()
+    {
+        $result =  parent::actionMove();
+
+        if ($result['status'] == 'error') {
+            $post = Yii::$app->request->post();
+
+            $model = ModelMap::findByName('Category')->where(['id' => $post['idFrom']])->one();
+
+            $validate = new CategoryUrlValidator();
+            $validate->validateAttribute($model, 'url');
+
+            $result['out'] = $model->errors['url'][0];
+        }
+
+        return $result;
     }
 }

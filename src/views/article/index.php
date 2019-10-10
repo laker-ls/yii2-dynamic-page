@@ -31,7 +31,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'delete' => function ($url) {
                     $currentUrl = Yii::$app->request->pathInfo;
-                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', "{$url}&redirect={$currentUrl}");
+                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', "{$url}&redirect={$currentUrl}", [
+                        'title' => 'Удалить',
+                        'aria-label' => 'Удалить',
+                        'data-pjax' => 0,
+                        'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?',
+                        'data-method' => 'post',
+                    ]);
                 }
             ]
         ]

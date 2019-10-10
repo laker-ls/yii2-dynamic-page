@@ -156,7 +156,7 @@ class Redirect extends ActiveRecord
         $Article = Module::getInstance()->modelMap['Article'];
         $Redirect = Module::getInstance()->modelMap['Redirect'];
 
-        $redirect = ModelMap::new('Redirect');
+        $redirect = ModelMap::newObject('Redirect');
 
         if ($model instanceof $Category) {
             $redirect->category_id = $model->id;

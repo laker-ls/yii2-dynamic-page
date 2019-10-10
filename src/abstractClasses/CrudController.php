@@ -3,6 +3,7 @@
 namespace lakerLS\dynamicPage\abstractClasses;
 
 use developeruz\db_rbac\behaviors\AccessBehavior;
+use lakerLS\dynamicPage\components\Access;
 use lakerLS\dynamicPage\components\ModelMap;
 use Yii;
 use yii\web\Controller;
@@ -63,7 +64,7 @@ abstract class CrudController extends Controller
                     $controller => [
                         [
                             'allow' => true,
-                            'roles' => ['admin'],
+                            'roles' => Access::getRoles(),
                         ],
                     ]
                 ]
@@ -101,7 +102,7 @@ abstract class CrudController extends Controller
     public function actionCreate()
     {
         $model = $this->model();
-        $article = ModelMap::new('Article');
+        $article = ModelMap::newObject('Article');
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
@@ -131,7 +132,7 @@ abstract class CrudController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $article = ModelMap::new('Article');
+        $article = ModelMap::newObject('Article');
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {

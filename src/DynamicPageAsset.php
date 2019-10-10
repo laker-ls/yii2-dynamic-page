@@ -27,6 +27,11 @@ class DynamicPageAsset extends AssetBundle
             $this->depends = [
                 'yii\bootstrap\BootstrapAsset',
                 'yii\bootstrap\BootstrapPluginAsset',
+                'yii\web\YiiAsset',
+            ];
+        } else {
+            $this->depends = [
+                'yii\web\YiiAsset',
             ];
         }
         parent::init();

@@ -63,7 +63,7 @@ class Category extends Tree
     {
         parent::afterSave($insert, $changedAttributes);
 
-        $redirect = ModelMap::new('Redirect');
+        $redirect = ModelMap::newObject('Redirect');
         $redirect->urlMain($this);
     }
 

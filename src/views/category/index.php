@@ -3,6 +3,7 @@
 use kartik\tree\TreeView;
 use kartik\tree\Module;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -27,6 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
         /** @var array $treeCheck */
         echo TreeView::widget([
             'query' => $treeView,
+            'nodeActions' => [
+                'move' => Url::to(['/dynamic-page/category/move']),
+            ],
 
             'options' => ['id' => 'myTree'],
 

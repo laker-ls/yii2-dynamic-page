@@ -36,7 +36,7 @@ class ModelMap extends ActiveRecord
      * @param string $model имя модели.
      * @return object
      */
-    public static function new($model)
+    public static function newObject($model)
     {
         $fullPath = Module::getInstance()->modelMap[$model];
         return new $fullPath;

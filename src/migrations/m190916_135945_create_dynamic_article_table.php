@@ -25,7 +25,7 @@ class m190916_135945_create_dynamic_article_table extends Migration
             'keyword' => $this->string(),
             'author_id' => $this->integer()->notNull(),
             'viewer' => $this->integer(),
-            'position' => $this->integer(),
+            'position' => $this->integer()->notNull(),
             'date' => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
         ]);
 

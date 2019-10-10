@@ -28,7 +28,7 @@ class ArticleController extends CrudController
     public function actionCreate()
     {
         /** @var Article $model */
-        $model = ModelMap::new('Article');
+        $model = ModelMap::newObject('Article');
 
         if ($model->load(Yii::$app->request->post())) {
             if (Yii::$app->request->isAjax) {
@@ -121,7 +121,7 @@ class ArticleController extends CrudController
      */
     public function actionCreateAjax($categoryId, $type, $currentUrl)
     {
-        $model = ModelMap::new('Article');
+        $model = ModelMap::newObject('Article');
 
         /** @var Type $type */
         $type = ModelMap::findByName('Type')->where(['type' => $type])->andWhere(['article' => '1'])->one();
@@ -179,7 +179,7 @@ class ArticleController extends CrudController
     protected function model()
     {
         /** @var Article $model */
-        $model = ModelMap::new('Article');
+        $model = ModelMap::newObject('Article');
         return $model;
     }
 
