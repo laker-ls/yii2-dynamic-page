@@ -1,6 +1,13 @@
 Список изменений: `yii2-dynamic-page`
 ===============================
 
+## Версия 1.3.0
+
+**Дата:** 12-октября-2019
+
+- Добавлена возможность передавать дополнительные атрибуты в представления `actionCategory` и `actionArticle` контроллера `DynamicPageController`.
+Подробнее смотрите [здесь](https://github.com/laker-ls/yii2-dynamic-page/blob/master/docs/dynamic-page-display.md).
+
 ## Версия 1.2.0
 
 **Дата:** 10-октября-2019

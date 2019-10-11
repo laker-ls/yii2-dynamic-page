@@ -246,24 +246,32 @@ abstract class CrudController extends Controller
      */
     private function alertMessage($status, $action)
     {
-        if ($action == 'create') {
-            $move = 'создана';
-        } elseif ($action == 'update') {
-            $move = 'обновлена';
-        } elseif ($action == 'delete') {
-            $move = 'удалена';
-        } else {
-            $move = '';
+        switch ($action) {
+            case 'create':
+                $move = 'создана';
+                break;
+            case 'update':
+                $move = 'обновлена';
+                break;
+            case 'delete':
+                $move = 'удалена';
+                break;
+            default:
+                $move = '';
         }
 
-        if ($status == 'success') {
-            $message = "Запись успешно $move!";
-        } elseif ($status == 'warning') {
-            $message = "Запись была $move некорректно!";
-        } elseif ($status == 'danger') {
-            $message = "Ошибка! Запись не была $move! Проверьте корректность данных.";
-        } else {
-            $message = 'Некорректно передан первый параметр "$status"';
+        switch ($status) {
+            case 'success':
+                $message = "Запись успешно $move!";
+                break;
+            case 'warning':
+                $message = "Запись была $move некорректно!";
+                break;
+            case 'danger':
+                $message = "Ошибка! Запись не была $move! Проверьте корректность данных.";
+                break;
+            default:
+                $message = 'Некорректно передан первый параметр "$status"';
         }
 
         return $message;

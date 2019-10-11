@@ -9,6 +9,7 @@ use lakerLS\dynamicPage\models\Category;
 use lakerLS\dynamicPage\models\search\ArticleSearch;
 use lakerLS\dynamicPage\Module;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\HttpException;
 
@@ -28,6 +29,32 @@ class DynamicPageController extends Controller
      * @var int $categoryId
      */
     public $categoryId;
+
+    /**
+     * @var array используется для передачи дополнительных параметров в `actionCategory` с помощью события.
+     * Пример использования в дочернем контроллере :
+     *
+     *      $this->on(parent::EVENT_BEFORE_ACTION, function () {
+     *          $this->addParamsCategory = [
+     *              'myParams' => $myParams,
+     *              'more' => $more,
+     *          ];
+     *      });
+     */
+    protected $addParamsCategory = [];
+
+    /**
+     * @var array используется для передачи дополнительных параметров в `actionArticle` с помощью события.
+     * Пример использования в дочернем контроллере :
+     *
+     *      $this->on(parent::EVENT_BEFORE_ACTION, function () {
+     *          $this->addParamsArticle = [
+     *              'myParams' => $myParams,
+     *              'more' => $more,
+     *          ];
+     *      });
+     */
+    protected $addParamsArticle = [];
 
     /**
      * Передаем в свойство $allCategories все существующие категории, за исключением корня.
@@ -64,11 +91,12 @@ class DynamicPageController extends Controller
         $this->categoryId = $model->id;
 
         $this->trigger(self::EVENT_BEFORE_ACTION);
+        $viewPath = $model->type . '/' . $model->type . 'Category';
         if ($model->type != 'static') {
-            return $this->render($model->type . '/' . $model->type . 'Category', [
+            return $this->render($viewPath, ArrayHelper::merge($this->addParamsCategory, [
                 'category' => $model,
                 'dataProvider' => $dataProvider,
-            ]);
+            ]));
         } else {
             throw new HttpException(422, 'Страница не может быть отображена.');
         }
@@ -92,9 +120,10 @@ class DynamicPageController extends Controller
         $this->categoryId = $categoryArticle->id;
 
         $this->trigger(self::EVENT_BEFORE_ACTION);
-        return $this->render($model->type . '/' . $model->type . 'Article', [
+        $viewPath = $model->type . '/' . $model->type . 'Article';
+        return $this->render($viewPath, ArrayHelper::merge($this->addParamsArticle, [
             'category' => $categoryArticle,
             'article' => $model,
-        ]);
+        ]));
     }
 }

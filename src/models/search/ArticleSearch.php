@@ -5,7 +5,6 @@ namespace lakerLS\dynamicPage\models\search;
 use lakerLS\dynamicPage\components\ModelMap;
 use lakerLS\dynamicPage\models\Article;
 use Yii;
-use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
 
