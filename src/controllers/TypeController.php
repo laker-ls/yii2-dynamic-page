@@ -2,15 +2,15 @@
 
 namespace lakerLS\dynamicPage\controllers;
 
-use lakerLS\dynamicPage\abstractClasses\CrudController;
 use lakerLS\dynamicPage\components\ModelMap;
+use lakerLS\dynamicPage\controllers\crud\CrudControllerAbstract;
 use lakerLS\dynamicPage\models\search\TypeSearch;
 use lakerLS\dynamicPage\models\Type;
 
 /**
  * TypeController реализует CRUD для модели Type, с помощью которой устанавливается тип категории.
  */
-class TypeController extends CrudController
+class TypeController extends CrudControllerAbstract
 {
     /**
      * Если удаляемый тип содержимого используется в категориях или статьях, произойдет рендер представления с ошибкой.

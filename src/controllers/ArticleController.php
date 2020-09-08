@@ -2,8 +2,8 @@
 
 namespace lakerLS\dynamicPage\controllers;
 
-use lakerLS\dynamicPage\abstractClasses\CrudController;
 use lakerLS\dynamicPage\components\ModelMap;
+use lakerLS\dynamicPage\controllers\crud\CrudControllerAbstract;
 use lakerLS\dynamicPage\models\Article;
 use lakerLS\dynamicPage\models\search\ArticleSearch;
 use lakerLS\dynamicPage\models\Type;
@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 /**
  * ArticleController реализует CRUD для модели Article.
  */
-class ArticleController extends CrudController
+class ArticleController extends CrudControllerAbstract
 {
     /**
      * Создание новой модели Article.

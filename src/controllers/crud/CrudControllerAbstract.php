@@ -1,9 +1,8 @@
 <?php
 
-namespace lakerLS\dynamicPage\abstractClasses;
+namespace lakerLS\dynamicPage\controllers\crud;
 
 use developeruz\db_rbac\behaviors\AccessBehavior;
-use lakerLS\dynamicPage\components\Access;
 use lakerLS\dynamicPage\components\ModelMap;
 use Yii;
 use yii\web\Controller;
@@ -13,8 +12,10 @@ use yii\filters\VerbFilter;
 /**
  * CrudController абстрактный класс, который реализует CRUD.
  */
-abstract class CrudController extends Controller
+abstract class CrudControllerAbstract extends Controller
 {
+    use AlertTrait;
+
     /**
      * Событие срабатывает после попытки создания модели.
      * Не важно, была ли попытка успешна или нет, сработает это событие.
@@ -64,9 +65,15 @@ abstract class CrudController extends Controller
                     $controller => [
                         [
                             'allow' => true,
-                            'roles' => Access::getRoles(),
+                            'roles' => ['admin'],
                         ],
-                    ]
+                    ],
+                    Yii::$app->controller->id => [
+                        [
+                            'allow' => true,
+                            'roles' => ['admin'],
+                        ],
+                    ],
                 ]
             ],
             'verbs' => [
@@ -108,7 +115,7 @@ abstract class CrudController extends Controller
             if ($model->save()) {
                 $this->alert('success', 'create');
             } else {
-                $this->alert('danger', 'create');
+                $this->alert('danger', 'create', $model->errors);
             }
             $this->trigger(self::EVENT_AFTER_CREATE);
 
@@ -138,7 +145,7 @@ abstract class CrudController extends Controller
             if ($model->save()) {
                 $this->alert('success', 'update');
             } else {
-                $this->alert('danger', 'update');
+                $this->alert('danger', 'update', $model->errors);
             }
             $this->trigger(self::EVENT_AFTER_UPDATE);
 
@@ -161,10 +168,11 @@ abstract class CrudController extends Controller
      */
     public function actionDelete($id)
     {
-        if ($this->findModel($id)->delete()) {
+        $model = $this->findModel($id);
+        if ($model->delete()) {
             $this->alert('success', 'delete');
         } else {
-            $this->alert('danger', 'delete');
+            $this->alert('danger', 'delete', $model->errors);
         }
         $this->trigger(self::EVENT_AFTER_DELETE);
 
@@ -222,58 +230,5 @@ abstract class CrudController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-    }
-
-    /**
-     * Передаем алерт сообщение с результатом работы.
-     *
-     * @param string $status value 'success', 'danger', 'error'.
-     * @param string $action value 'create' or 'update'.
-     */
-    protected function alert($status, $action)
-    {
-        $message = $this->alertMessage($status, $action);
-
-        Yii::$app->session->setFlash($status, $message, false);
-    }
-
-    /**
-     * Шаблон с сообщениями алертов.
-     *
-     * @param string $status
-     * @param string $action
-     * @return string
-     */
-    private function alertMessage($status, $action)
-    {
-        switch ($action) {
-            case 'create':
-                $move = 'создана';
-                break;
-            case 'update':
-                $move = 'обновлена';
-                break;
-            case 'delete':
-                $move = 'удалена';
-                break;
-            default:
-                $move = '';
-        }
-
-        switch ($status) {
-            case 'success':
-                $message = "Запись успешно $move!";
-                break;
-            case 'warning':
-                $message = "Запись была $move некорректно!";
-                break;
-            case 'danger':
-                $message = "Ошибка! Запись не была $move! Проверьте корректность данных.";
-                break;
-            default:
-                $message = 'Некорректно передан первый параметр "$status"';
-        }
-
-        return $message;
     }
 }
